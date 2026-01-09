@@ -12,11 +12,14 @@ let distanceToObject: number = 0
 //setup
 basic.showString("READY")
 robotbit.MotorRun(robotbit.Motors.M1A, 150)
+radio.setGroup(41)
 
-// if button A is pressed, LEFT wheel spins foraward
-input.onButtonPressed(Button.A, function() {
-    robotbit.StepperDual(1000000, 1000000)
-    basic.pause(100)
+// When button A is pressed, LEFT wheel spins foraward
+radio.onReceivedNumber(function (receivedNumber) {
+    if (receivedNumber == 1) {
+        input.onButtonPressed(Button.A, function() {
+        robotbit.StepperDual(1000000, 1000000)
+        basic.pause(100)
 })
 
 while (true) {
@@ -36,3 +39,4 @@ while (true) {
         basic.pause(500)
     }
 }
+    }})
