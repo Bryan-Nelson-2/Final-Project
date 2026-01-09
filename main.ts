@@ -16,7 +16,7 @@ radio.setGroup(41)
 
 // When button A is pressed, LEFT wheel spins foraward
 radio.onReceivedNumber(function (receivedNumber) {
-    if (receivedNumber == 1) {
+    if (receivedNumber = 1) {
         input.onButtonPressed(Button.A, function() {
         robotbit.StepperDual(1000000, 1000000)
         basic.pause(100)
