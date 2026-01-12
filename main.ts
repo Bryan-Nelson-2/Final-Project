@@ -6,7 +6,6 @@
 */
 
 // variables
-let motor: stepperMotor.Motor
 let distanceToObject: number = 0
 
 //setup
