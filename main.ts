@@ -7,31 +7,40 @@
 
 // variables
 let distanceToObject: number = 0
+let moving = false
 
 //setup
 basic.showString("READY")
 radio.setGroup(41)
 
-// When button A is pressed, LEFT wheel spins foraward
+// When button A is pressed, BACK wheels spin foraward
 radio.onReceivedNumber(function (receivedNumber) {
     if (receivedNumber == 1) {
+        moving = true
         robotbit.StepperDual(1000000, 1000000)
-        basic.pause(100)}
+        basic.pause(100)
+    } else if (receivedNumber == 2) {
+        moving = true
+        robotbit.StepperDual(-1000000, -1000000)
+        basic.pause(100)
+    }  
 })
 
+// Stops when within 10 cm
 basic.forever(function () {
-// gets the distance constantly
-        distanceToObject = sonar.ping(
-            DigitalPin.P1,
-            DigitalPin.P2,
-            PingUnit.Centimeters
+    distanceToObject = sonar.ping(
+        DigitalPin.P1,
+        DigitalPin.P2,
+        PingUnit.Centimeters
     )
 
-    if (distanceToObject < 10) {
-        robotbit.StepperDual(0, 0)
-
-    } else {
-        basic.showIcon(IconNames.Happy)
-        basic.pause(500)
+    if (moving) {
+        if (distanceToObject < 10) {
+            robotbit.StepperDual(0, 0)
+            moving = false
+        } else {
+            basic.showIcon(IconNames.Happy)
+            basic.pause(500)
+        }
     }
 })
